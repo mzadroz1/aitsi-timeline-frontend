@@ -1,0 +1,119 @@
+<mat-toolbar color="primary">
+<!--  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">-->
+<!--    <mat-icon>menu</mat-icon>-->
+<!--  </button>-->
+  <span>AITSI Timeline</span>
+  <span class="example-spacer"></span>
+  <div class="button-row">
+    <div class="flex-container">
+      <div class="button-container">
+        <button *ngIf="!isUserLoggedIn()" mat-raised-button (click)="openLoginDialog()">Login</button>
+
+        <button *ngIf="isUserLoggedIn()" mat-raised-button (click)="openEventTypesDialog()">Edit Event Types</button>
+
+        <button *ngIf="isUserLoggedIn()" mat-raised-button (click)="openCreateEvent()">Create Event</button>
+
+        <button *ngIf="isUserLoggedIn()" mat-raised-button (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </div>
+</mat-toolbar>
+
+
+
+<div class="content-panel">
+  <mat-tab-group class="mat-elevation-z5" dynamicHeight>
+    <mat-tab label="Timeline View">
+      <div class="timeline">
+        <ngx-mat-timeline
+          class="custom-timeline"
+          position="center"
+          orientation="vertical"
+          [reverse]="false"
+        >
+          <ngx-mat-timeline-item *ngFor="let item of timelineEventList; let idx = index">
+            <div
+              class="custom-content"
+              style="min-width: 150px; max-width: 550px"
+            >
+              <div>
+                <mat-card [ngStyle]="{'background-color': 'mediumpurple', 'color': 'white'}">
+                  <mat-card-header>
+                    <mat-card-title-group>
+                      <mat-card-title>
+                        {{item.event_name}}
+                      </mat-card-title>
+                      <mat-card-subtitle>
+                        {{findEventTypeById(item.event_type_id)?.event_type_name}}
+                      </mat-card-subtitle>
+
+                    </mat-card-title-group>
+                  </mat-card-header>
+                  <mat-card-content>
+
+                    <mat-accordion>
+                      <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                          <mat-panel-title [ngStyle]="{'color': 'rebeccapurple'}">
+                            {{item.short_description}}
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-card-header>
+                          <img [src]=item.img_url  alt="Missing photo"/>
+                        </mat-card-header>
+                        <mat-card-content>
+                          {{item.description}}
+                        </mat-card-content>
+
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </mat-card-content>
+                </mat-card>
+
+                <div class="button-row">
+                  <div class="flex-container">
+                    <div class="button-container">
+                      <button *ngIf="isUserLoggedIn()" mat-mini-fab color="accent" aria-label="Edit"
+                              (click)="openEditDialog(item)">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                      <button *ngIf="isUserLoggedIn()" mat-mini-fab color="warn" aria-label="Delete"
+                              (click)="openDeleteDialog(item)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <ng-template ngxMatTimelineItemIcon>
+              <div class="timeline-event-icon" ><mat-icon [ngStyle]="{'color': findEventTypeById(item.event_type_id)?.color}">calendar_today</mat-icon></div>
+              <!--                <div matBadge="{{ idx + 1 }}" matBadgeSize="large" [ngStyle]="{'background': findEventTypeById(item.event_type_id)?.color}"></div>-->
+            </ng-template>
+
+            <ng-template ngxMatTimelineItemLabel>
+              <div
+                class="event-dates-label">{{ item.event_start_date.toString() }}
+                <div *ngIf="!isEventStartDateEqualToEventEndDate(item)">
+                  <div>
+                    -
+                  </div>
+                  <div>
+                    {{item.event_end_date.toString()}}
+                  </div>
+                </div>
+              </div>
+              <!--                  <div class="event-type-label"></div>-->
+              <!--                </mat-chip>-->
+            </ng-template>
+          </ngx-mat-timeline-item>
+        </ngx-mat-timeline>
+      </div>
+    </mat-tab>
+    <mat-tab label="Table View">
+      <app-timeline-event-table></app-timeline-event-table>
+    </mat-tab>
+  </mat-tab-group>
+
+</div>

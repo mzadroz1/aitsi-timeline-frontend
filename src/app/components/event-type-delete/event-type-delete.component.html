@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Delete event type</h1>
+<div mat-dialog-content>
+  Would you like to delete {{deletedEventType.event_type_name}}?
+</div>
+<mat-chip *ngIf="unableToDelete" [ngStyle]="{'margin-left' : '20px', 'margin-bottom' : '5px'}">
+  Cannot delete event type when there are events using this type!
+</mat-chip>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close="">No</button>
+  <button mat-raised-button color="warn" cdkFocusInitial (click)="deleteEventType()">
+    Yes
+  </button>
+</div>

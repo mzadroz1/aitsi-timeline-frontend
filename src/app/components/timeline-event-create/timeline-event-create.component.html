@@ -1,0 +1,69 @@
+<div mat-dialog-content>
+  <form [formGroup]="timelineEventFormGroup" (ngSubmit)="createTimelineEvent()">
+    <mat-card>
+      <mat-card-title>Create new event!</mat-card-title>
+      <mat-card-content>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Event name</mat-label>
+            <input matInput placeholder="Event name" formControlName="event_name" required>
+            <mat-error>Please enter an event name</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Enter a start and end dates</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input matStartDate placeholder="Start date" formControlName="event_start_date">
+              <input matEndDate placeholder="End date" formControlName="event_end_date">
+            </mat-date-range-input>
+            <mat-error>Please enter a date range</mat-error>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Short description</mat-label>
+            <textarea cdkTextareaAutosize matInput placeholder="Short description" formControlName="short_description" required> </textarea>
+            <mat-error>Please enter a short description</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea cdkTextareaAutosize matInput placeholder="Description" formControlName="description" required> </textarea>
+            <mat-error>Please enter a description</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Image URL</mat-label>
+            <textarea cdkTextareaAutosize matInput placeholder="Image URL" formControlName="img_url"> </textarea>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Event type</mat-label>
+            <mat-select formControlName="event_type_name" (selectionChange)="onSelectOption($event)">
+              <mat-select-trigger>
+                <span *ngIf="selectedEventType">
+                  {{ selectedEventType }}
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let eventType of eventTypeList" [value]="eventType.event_type_name">
+                  <mat-label>
+                    {{eventType.event_type_name}} <mat-icon [ngStyle]="{'color': eventType.color}"> calendar_today </mat-icon>
+                  </mat-label>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div mat-dialog-actions>
+          <button mat-raised-button color="primary">Create Event</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

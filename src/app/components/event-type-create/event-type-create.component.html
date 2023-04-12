@@ -1,0 +1,37 @@
+<div mat-dialog-content>
+  <form [formGroup]="eventTypeFormGroup" (ngSubmit)="createEventType()">
+    <mat-card>
+      <mat-card-title align="center">{{getFormLabel()}}</mat-card-title>
+      <mat-card-content align="center">
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Event type name</mat-label>
+            <input matInput placeholder="Event type name" formControlName="event_type_name" required>
+            <mat-error>Please enter a valid event type name</mat-error>
+          </mat-form-field>
+        </div>
+          <mat-form-field appearance="fill">
+            <mat-label>Color</mat-label>
+            <mat-select formControlName="color" (selectionChange)="onSelectOption($event)">
+              <mat-select-trigger>
+                <span *ngIf="selectedColor">
+                  {{ selectedColor }}
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let color of getColorList()" [value]="color">
+                <mat-label>
+                  {{color}} <mat-icon [ngStyle]="{'color': color}"> calendar_today </mat-icon>
+                </mat-label>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        <mat-chip *ngIf="invalidNewEventType" color='warn'>
+          Event type name and color must be unique!
+        </mat-chip>
+        <div mat-dialog-actions align="center">
+          <button mat-raised-button color="primary">{{getButtonLabel()}}</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

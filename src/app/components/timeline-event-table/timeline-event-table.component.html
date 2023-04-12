@@ -1,0 +1,123 @@
+<div class="datepicker-row">
+  <form [formGroup]="filterDatesFormGroup" (ngSubmit)="applyDateFilter()">
+      <mat-form-field class="datepicker-row">
+        <input
+          matInput
+          placeholder="Start Date"
+          [matDatepicker]="picker1"
+          formControlName="fromDate"
+          (click)="picker1.open()"
+        >
+        <mat-datepicker-toggle
+          matSuffix [for]="picker1"
+        ></mat-datepicker-toggle>
+        <mat-datepicker
+          #picker1></mat-datepicker>
+      </mat-form-field>
+    <mat-form-field class="datepicker-row">
+      <input
+        matInput
+        placeholder="End Date"
+        [matDatepicker]="picker2"
+        formControlName="toDate"
+        (click)="picker2.open()"
+      >
+      <mat-datepicker-toggle
+        matSuffix [for]="picker2"
+      ></mat-datepicker-toggle>
+      <mat-datepicker
+        #picker2></mat-datepicker>
+    </mat-form-field>
+    <div>
+      <mat-chip *ngIf="isFromDateEarlierThanToDate()">Invalid date range: start date must be earlier than end date!</mat-chip>
+    </div>
+    <div class="button-row">
+      <button
+        mat-raised-button color="accent"
+        [disabled]="isFilteringDisabled() || isFromDateEarlierThanToDate()">Filter events</button>
+      <button mat-raised-button color="accent" type="button" (click)="clearFilters()" [disabled]="isFilteringDisabled()">Clear</button>
+    </div>
+  </form>
+</div>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
+      <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+    </ng-container>
+
+    <!-- Event name column -->
+    <ng-container matColumnDef="event_name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Event Name</th>
+      <td mat-cell *matCellDef="let row"> {{row.event_name}} </td>
+    </ng-container>
+
+    <!-- Event Start Date column -->
+    <ng-container matColumnDef="event_start_date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Event Start Date</th>
+      <td mat-cell *matCellDef="let row"> {{row.event_start_date}} </td>
+    </ng-container>
+
+    <!-- Event End Date column -->
+    <ng-container matColumnDef="event_end_date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Event End Date</th>
+      <td mat-cell *matCellDef="let row"> {{row.event_end_date}} </td>
+    </ng-container>
+
+    <!-- Short Description column -->
+    <ng-container matColumnDef="short_description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Short Description</th>
+      <td mat-cell *matCellDef="let row"> {{row.short_description}} </td>
+    </ng-container>
+
+    <!-- Description column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
+      <td mat-cell *matCellDef="let row"> {{row.description}} </td>
+    </ng-container>
+
+    <!-- Image url column -->
+    <ng-container matColumnDef="img_url">
+      <th mat-header-cell *matHeaderCellDef> Image</th>
+      <td mat-cell *matCellDef="let row"><img [src]=row.img_url alt="Missing photo"/></td>
+    </ng-container>
+
+    <!-- Event Type id column -->
+    <ng-container matColumnDef="event_type_id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Event Type</th>
+      <td mat-cell *matCellDef="let row"> {{findEventTypeById(row.event_type_id)?.event_type_name}} </td>
+    </ng-container>
+
+    <ng-container *ngIf="isUserLoggedIn()" matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions</th>
+      <td mat-cell *matCellDef="let row">
+        <div class="button-row">
+          <div class="flex-container">
+            <div class="button-container">
+              <button mat-mini-fab color="accent" aria-label="Edit"
+                      (click)="openEditDialog(row)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-mini-fab color="warn" aria-label="Delete"
+                      (click)="openDeleteDialog(row)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
+    <tr mat-row *matRowDef="let row; columns: getDisplayedColumns();"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching"</td>
+    </tr>
+  </table>
+
+</div>

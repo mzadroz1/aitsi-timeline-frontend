@@ -1,0 +1,62 @@
+<!--<form [formGroup]="loginFormGroup" (ngSubmit)="login()">-->
+<!--  <mat-card>-->
+<!--    <mat-card-title>Login</mat-card-title>-->
+<!--    <mat-card-content>-->
+<!--      <div>-->
+<!--        <mat-form-field appearance="outline">-->
+<!--          <mat-label>Username</mat-label>-->
+<!--          <input matInput placeholder="Username" formControlName="username" required>-->
+<!--          <mat-error>Please enter an username</mat-error>-->
+<!--        </mat-form-field>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <mat-form-field appearance="outline">-->
+<!--          <mat-label>Password</mat-label>-->
+<!--          <input matInput placeholder="Password" formControlName="password" required>-->
+<!--          <mat-error>Please enter a password</mat-error>-->
+<!--        </mat-form-field>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <button mat-raised-button color="primary">Login</button>-->
+<!--      </div>-->
+<!--    </mat-card-content>-->
+<!--  </mat-card>-->
+<!--</form>-->
+
+<h1 mat-dialog-title>Login</h1>
+<div mat-dialog-content>
+  <form [formGroup]="loginFormGroup" (ngSubmit)="login()">
+    <mat-card>
+<!--      <mat-card-title>Login</mat-card-title>-->
+      <mat-card-content>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput placeholder="Username" formControlName="username" required>
+            <mat-error>Please enter an username</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Password" formControlName="password" required>
+            <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error>Please enter a password</mat-error>
+          </mat-form-field>
+        </div>
+        <mat-chip *ngIf="invalidLogin" color='warn'>
+          Invalid username or password
+        </mat-chip>
+        <div mat-dialog-actions>
+          <button mat-raised-button color="primary">Login</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>
+<!--<div mat-dialog-actions>-->
+<!--  <button mat-button mat-dialog-close>No</button>-->
+<!--  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>-->
+<!--</div>-->
