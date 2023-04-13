@@ -1,0 +1,104 @@
+<mat-toolbar (click)="openMainPage()" color="primary">
+  <!--  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">-->
+  <!--    <mat-icon>menu</mat-icon>-->
+  <!--  </button>-->
+  <span>AITSI Timeline</span>
+  <span class="example-spacer"></span>
+</mat-toolbar>
+<mat-card class="info-card">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title><h1>Informacje o projekcie</h1></mat-card-title>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content>
+    <h2>Projekt został stworzony podczas realizacji przedmiotu "Architektury i Technologie Systemów Internetowych"</h2>
+  </mat-card-content>
+</mat-card>
+<mat-card class="info-card">
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item>
+        <mat-icon matListItemIcon>lens</mat-icon>
+        Autor: Michał Zadrożny
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListItemIcon>lens</mat-icon>
+        Wersja HTML: HTML 5
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListItemIcon>lens</mat-icon>
+        Framework wykorzystany do budowania strony: Angular
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListItemIcon>lens</mat-icon>
+        Biblioteka komponentów wizualnych: Angular Material (https://material.angular.io)
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListItemIcon>lens</mat-icon>
+        Backend: REST API w języku PHP (framework CodeIgniter)
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListItemIcon>lens</mat-icon>
+        Baza danych: PostgreSQL
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListItemIcon>lens</mat-icon>
+        Hosting: Heroku
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
+<mat-card class="info-card">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title><h1>Temat strony: Pamiętnik</h1></mat-card-title>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content>
+    <h2>Stworzona strona jest prostym systemem umożliwiającym tworzenie pamiętnika. Oferowane funkcje to:</h2>
+    <mat-list>
+      <mat-list-item>
+        <mat-icon matListItemIcon>lens</mat-icon>
+        Przeglądanie zapisanych w systemie zdarzeń w postaci osi czasu lub w postaci tabeli. Każde zdarzenie charakteryzuje się tytułem, opisem, datą rozpoczęcia i zakończenia, ilustracją oraz typem zdarzenia
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListItemIcon>lens</mat-icon>
+        Filtrowanie zdarzeń w tabeli według podanego zakresu dat
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListItemIcon>lens</mat-icon>
+        Dodawanie nowych zdarzeń do pamiętnika, a także ich edycja i usuwanie (zalogowani użytkownicy)
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListItemIcon>lens</mat-icon>
+        Dodawanie nowych typów zdarzeń, a także ich edycja i usuwanie (zalogowani użytkownicy)
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
+<mat-card class="info-card">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title><h1>Spełnienie wymagań projektowych</h1></mat-card-title>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- Item Column -->
+      <ng-container matColumnDef="wymaganie">
+        <th mat-header-cell *matHeaderCellDef> Wymaganie </th>
+        <td mat-cell *matCellDef="let wymaganie"> {{wymaganie.wymaganie}} </td>
+      </ng-container>
+
+      <!-- Cost Column -->
+      <ng-container matColumnDef="uzasadnienie">
+        <th mat-header-cell *matHeaderCellDef> Uzasadnienie spełnienia wymagania </th>
+        <td mat-cell *matCellDef="let wymaganie"> {{wymaganie.uzasadnienie}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>

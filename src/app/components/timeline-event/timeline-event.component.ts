@@ -11,6 +11,8 @@ import {TimelineEventDeleteComponent} from "../timeline-event-delete/timeline-ev
 import {CookieService} from "ngx-cookie-service";
 import jwtDecode from 'jwt-decode'
 import {EventTypesComponent} from "../event-types/event-types.component";
+import {InfoComponent} from "../info/info.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-timeline-event',
@@ -25,6 +27,7 @@ export class TimelineEventComponent implements OnInit {
   constructor(private timelineEventService: TimelineEventService,
               private eventTypeService: EventTypeService,
               private cookieService: CookieService,
+              private router: Router,
               public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -62,10 +65,15 @@ export class TimelineEventComponent implements OnInit {
 
   }
 
+  openInfoDialog(): void {
+    // this.dialog.open(InfoComponent, {
+    //   width: '500px'
+    // });
+    this.router.navigateByUrl("info");
+  }
+
   openCreateEvent(): void {
-    this.dialog.open(TimelineEventCreateComponent, {
-      width: '500px'
-    });
+    this.dialog.open(TimelineEventCreateComponent);
   }
 
   openEditDialog(item: TimelineEvent) {

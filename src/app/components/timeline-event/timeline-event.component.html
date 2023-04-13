@@ -7,13 +7,17 @@
   <div class="button-row">
     <div class="flex-container">
       <div class="button-container">
-        <button *ngIf="!isUserLoggedIn()" mat-raised-button (click)="openLoginDialog()">Login</button>
+        <button mat-mini-fab color="accent" aria-label="Info page" (click)="openInfoDialog()">
+          <mat-icon>info</mat-icon>
+        </button>
 
-        <button *ngIf="isUserLoggedIn()" mat-raised-button (click)="openEventTypesDialog()">Edit Event Types</button>
+        <button *ngIf="!isUserLoggedIn()" mat-raised-button (click)="openLoginDialog()" aria-label="Login">Login</button>
 
-        <button *ngIf="isUserLoggedIn()" mat-raised-button (click)="openCreateEvent()">Create Event</button>
+        <button *ngIf="isUserLoggedIn()" mat-raised-button (click)="openEventTypesDialog()" aria-label="Edit Event Types">Edit Event Types</button>
 
-        <button *ngIf="isUserLoggedIn()" mat-raised-button (click)="logout()">Logout</button>
+        <button *ngIf="isUserLoggedIn()" mat-raised-button (click)="openCreateEvent()" aria-label="Create Event">Create Event</button>
+
+        <button *ngIf="isUserLoggedIn()" mat-raised-button (click)="logout()" aria-label="Logout">Logout</button>
       </div>
     </div>
   </div>

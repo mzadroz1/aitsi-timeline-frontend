@@ -36,6 +36,9 @@ import { TimelineEventTableComponent } from './components/timeline-event-table/t
 import {MatToolbarModule} from "@angular/material/toolbar";
 import { EventTypeCreateComponent } from './components/event-type-create/event-type-create.component';
 import { EventTypeDeleteComponent } from './components/event-type-delete/event-type-delete.component';
+import { InfoComponent } from './components/info/info.component';
+import {MatListModule} from "@angular/material/list";
+import {CdkColumnDef} from "@angular/cdk/table";
 
 @NgModule({
   declarations: [
@@ -48,7 +51,8 @@ import { EventTypeDeleteComponent } from './components/event-type-delete/event-t
     TimelineEventDeleteComponent,
     TimelineEventTableComponent,
     EventTypeCreateComponent,
-    EventTypeDeleteComponent
+    EventTypeDeleteComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,
@@ -77,10 +81,12 @@ import { EventTypeDeleteComponent } from './components/event-type-delete/event-t
     MatBadgeModule,
     MatTableModule,
     MatSortModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatListModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: LoginInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: LoginInterceptor, multi: true},
+    CdkColumnDef
   ],
   bootstrap: [AppComponent]
 })
