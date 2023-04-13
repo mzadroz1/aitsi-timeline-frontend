@@ -6,8 +6,8 @@
   Cannot delete event type when there are events using this type!
 </mat-chip>
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close="">No</button>
-  <button mat-raised-button color="warn" cdkFocusInitial (click)="deleteEventType()">
+  <button mat-button mat-dialog-close="" aria-label="No">No</button>
+  <button mat-raised-button color="warn" cdkFocusInitial (click)="deleteEventType()" aria-label="Yes">
     Yes
   </button>
 </div>

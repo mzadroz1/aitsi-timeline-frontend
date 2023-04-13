@@ -3,8 +3,8 @@
   Would you like to delete {{deletedTimelineEvent.event_name}}?
 </div>
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close="">No</button>
-  <button mat-raised-button color="warn" cdkFocusInitial (click)="deleteEvent()">
+  <button mat-button mat-dialog-close="" aria-label="No">No</button>
+  <button mat-raised-button color="warn" cdkFocusInitial (click)="deleteEvent()" aria-label="Yes">
     Yes
   </button>
 </div>
